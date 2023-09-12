@@ -191,7 +191,7 @@ top: -5px;
 }
 
 .remember-forgot a{
-    color: gray;
+    color: aquamarine;
     text-decoration: none;
 }
 
@@ -267,6 +267,18 @@ top: -5px;
     background-color: #3367d6;
     transition: background-color .2s;
 }
+
+.g-sign-in-button .content-wrapper{
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+}
+
+.g-sign-in-button img{
+    width: 18px;
+    height: 18px;
+}
+
 
 
 
