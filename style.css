@@ -10,7 +10,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('images/background.jpg')no-repeat;
+    background: url('images/drowz.jpg')no-repeat;
     background-size: cover;
     background-position: center;
 
@@ -199,6 +199,25 @@ top: -5px;
     text-decoration: underline;
 }
 
+.btnGoogle-signin{
+    width: 70%;
+    height: 45px;
+    background: #083838;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75em;
+    color: #fff;
+    font-weight: 500;
+
+}
+
+.btnGoogle-signin:hover{
+    background: #fff;
+color: #083838;
+}
+
 /* //login button */
 
 .btn{                 
@@ -232,5 +251,4 @@ top: -5px;
 .login-register p a:hover{
     text-decoration: underline;
 }
-
 
