@@ -257,12 +257,16 @@ top: -5px;
 
 }
 
-.g-sign-in-button{
+.g-sign-in-button:hover{
     cursor: pointer;
     -webkit-box-shadow: 0 0 3px 3px rgba(66,133,244,.3);
     box-shadow: 0 0 3px 3px rgba(66,133,244,.3);
 }
 
+.g-sign-in-button:active{
+    background-color: #3367d6;
+    transition: background-color .2s;
+}
 
 
 
