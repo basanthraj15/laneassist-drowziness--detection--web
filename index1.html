@@ -11,7 +11,7 @@
 
 <body>
     <header class="header">
-       
+
         <nav class="navbar">
             <a href="index1.html">Home</a>
             <a href="About.html">About</a>
@@ -19,10 +19,10 @@
             <a href="contact.html">Contact</a>
             <!-- <button class="btnLogin-popup">Login</button> -->
         </nav>
-        
-            <a href="Signup.html"><button class="btnLogin-popup">Signup</button>
+
+        <a href="Signup.html"><button class="btnLogin-popup">Signup</button>
             </button></a>
-        
+
     </header>
     <div class="background"></div>
     <div class="container">
@@ -35,36 +35,41 @@
                 </div> -->
                 <h2>Welcome<br>Aboard!!!</h2>
                 <p>We help you to Keep your lanes and stay away from drowziness <br> #SafeDrive</p>
-                
+
             </div>
             <div class="logreg-box">
 
                 <div class="form-box login">
                     <form>
-                        
+
 
                         <h2>Sign In</h2>
-                        
-                        
+
+
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-envelope'></i></span>
-                            <input type="email" value="" id="email" required>
+                            <input type="email" value="" id="login_email" required>
                             <label>Email id</label>
                         </div>
 
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                            <input type="password" value="" id="password" required>
+                            <input type="password" value="" id="login_password" required>
                             <label>Password</label>
                         </div>
 
 
 
-                        <div class="remember-forgot"><label> <input type="checkbox">Remember Me</label><a href="#">Forgot Password?</a>
-                            
+                        <div class="remember-forgot"><label> <input type="checkbox">Remember Me</label><a
+                                href="#">Forgot Password?</a>
+
                         </div>
-                        <input type="submit" class="btn" value="Sign In" class="sub" id="submit">
+                        
+
+
+                        <button type="button" class="button" name="login" class="sub" id="login">Log In
+                        </button>
                         <div class="login-register">
                             <br>
 
@@ -74,17 +79,17 @@
                             <a href="#">
                                 <div class="g-sign-in-button">
                                     <div class="content-wrapper">
-                                        <div class="logo-wrapper">  
-                                            <img src="https://developers.google.com/identity/images/g-logo.png">  
+                                        <div class="logo-wrapper">
+                                            <img src="https://developers.google.com/identity/images/g-logo.png">
                                         </div>
                                         <span class="text-container">
-                                        <span>Sign in with google</span>
-                                    </span>
-                           
+                                            <span>Sign in with google</span>
+                                        </span>
+
+                                    </div>
                                 </div>
-                            </div>
                             </a>
-            
+
                         </div>
 
                     </form>
@@ -95,6 +100,56 @@
             </div>
         </div>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAaYEj9TDlsx1iHEujKvyl1FOjHi9UDxk4",
+            authDomain: "car-connect-c6232.firebaseapp.com",
+            projectId: "car-connect-c6232",
+            storageBucket: "car-connect-c6232.appspot.com",
+            messagingSenderId: "8187568957",
+            appId: "1:8187568957:web:d83fc2741b227f23c29b54",
+            measurementId: "G-K644JM5TFS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+        console.log(app);
+        document.getElementById("login").addEventListener("click", function () {
+            var email = document.getElementById("login_email").value;
+            var password = document.getElementById("login_password").value;
+
+           signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user);
+                    alert(user.email + " Logged In successfully!!!");
+                    window.location.assign("Dashboard.html");
+                    
+
+
+                    document.getElementById('logout').style.display = 'block';
+                    // ...
+                })
+                
+               /*  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                    alert(errorMessage);
+                }); */
+        });
+
+
+
+    </script>
 
 </body>
 

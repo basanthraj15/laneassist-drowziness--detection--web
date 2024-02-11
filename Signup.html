@@ -11,13 +11,13 @@
 
 <body>
     <header class="header">
-       
+
         <nav class="navbar">
             <a href="index1.html">Home</a>
             <a href="About.html">About</a>
             <a href="#">Services</a>
             <a href="contact.html">Contact</a>
-           
+
         </nav>
         <a href="index1.html"><button type="submit" class="btnLogin-popup">Login</button></a>
         <form action="#" class="search-bar">
@@ -49,6 +49,7 @@
                             <label>username</label>
                         </div>
                         <div class="input-box">
+
                             <span class="icon"><i class='bx bxs-envelope'></i></span>
                             <input type="email" value="" id="email" required>
                             <label>Email id</label>
@@ -63,8 +64,9 @@
 
 
 
-                        <div class="remember-forgot"><label> <input type="checkbox">I agree to the terms and conditions</label>
-                            
+                        <div class="remember-forgot"><label> <input type="checkbox">I agree to the terms and
+                                conditions</label>
+
                         </div>
                         <input type="submit" class="btn" value="Create an Account" class="sub" id="submit">
                         <div class="login-register">
@@ -86,6 +88,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAaYEj9TDlsx1iHEujKvyl1FOjHi9UDxk4",
@@ -99,7 +102,34 @@
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const auth = getAuth();
         const db = getDatabase(app);
+
+        submit.addEventListener('click',(e)=>{
+
+            
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var username = document.getElementById("username").value;
+
+
+
+            createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    alert('User Created Successfully!!')
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert('errorMessage')
+    // ..
+  });
+        })
+
+        
 
         document.getElementById("submit").addEventListener('click', function (e) {
             e.preventDefault();
@@ -111,18 +141,20 @@
                     Password: document.getElementById("password").value
 
                 });
-           //alert
-           document.querySelector('.alert').style.display = "block";
+            //alert
+            document.querySelector('.alert').style.display = "block";
 
-           setTimeout(()=>{
-            document.querySelector('.alert').style.display = "none";
-        },2000);
+            setTimeout(() => {
+                document.querySelector('.alert').style.display = "none";
+            }, 2000);
         })
 
-       
+
 
 
     </script>
+
+
 
 </body>
 
