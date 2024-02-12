@@ -37,6 +37,7 @@
             <div class="logreg-box">
                 <div class="form-box login">
                     <form>
+                        <div class="alert">Account Created Succesfully!!</div>
 
                         <h2>Sign Up</h2>
                         <div class="inputbox">
@@ -102,11 +103,18 @@
 
                     username: document.getElementById("username").value,
                     email: document.getElementById("email").value,
-                    PhoneNumber: document.getElementById("password").value
+                    Password: document.getElementById("password").value
 
                 });
-            alert("Login Sucessfull  !");
+           //alert
+           document.querySelector('.alert').style.display = "block";
+
+           setTimeout(()=>{
+            document.querySelector('.alert').style.display = "none";
+        },2000);
         })
+
+       
 
 
     </script>
