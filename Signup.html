@@ -25,34 +25,47 @@
     </header>
     <div class="container">
         <div class="content">
-            <h2 class ="logo"> <i class='bx bxs-car-garage'></i>CarConnect</h2>
+            <h2 class="logo"> <i class='bx bxs-car-garage'></i>CarConnect</h2>
             <div class="text-sci">
                 <h2>Welcome!<br><span>To our website</span></h2>
                 <p>abcderfghjkll</p>
                 <div class="social-icons">
-                    <a href="https://github.com/basanthraj15/laneassist-drowziness--detection--web"><i class='bx bxl-github' ></i></a>
+                    <a href="https://github.com/basanthraj15/laneassist-drowziness--detection--web"><i
+                            class='bx bxl-github'></i></a>
                 </div>
             </div>
             <div class="logreg-box">
                 <div class="form-box login">
-                    <form action="#">
-                        <h2>Sign Up</h2>
-                        <div class="input-box"></div>
-                        <span class="icon"><i class='bx bxs-envelope'></i></span>
-                        <input type="email" required>
-                        <label>"Email"</label>
+                    <form>
 
-                        <div class="input-box"></div>
-                        <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                        <input type="password" required>
-                        <label>"Password"</label>
-                        <div class="remember-forgot"><label> <input type="checkbox">Remember Me</label>
-                        <a href="#">Forgot Password</a>
+                        <h2>Sign Up</h2>
+                        <div class="inputbox">
+                            <span class="icon"><i class='bx bxs-user-detail'></i></span>
+                            <input type="text" value="" id="username" required>
+                            <span>username</span>
                         </div>
-                        <button type="submit" class="btn">Sign Up</button>
+                        <div class="inputbox">
+                            <span class="icon"><i class='bx bxs-envelope'></i></span>
+                            <input type="email" value="" id="email" required>
+                            <span>E-mail</span>
+                        </div>
+
+
+                        <div class="inputbox">
+                            <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                            <input type="password" value="" id="password" required>
+                            <span>Password</span>
+                        </div>
+
+
+
+                        <div class="remember-forgot"><label> <input type="checkbox">Remember Me</label>
+                            <a href="#">Forgot Password</a>
+                        </div>
+                        <input type="submit" value="Create an Account" class="sub" id="submit">
                         <div class="login-register">
 
-                        <p>Already have an account? <a href="index.html" class="register">Login</a></p>
+                            <p>Already have an account? <a href="index.html" class="register">Login</a></p>
                         </div>
 
                     </form>
@@ -63,7 +76,40 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAaYEj9TDlsx1iHEujKvyl1FOjHi9UDxk4",
+            authDomain: "car-connect-c6232.firebaseapp.com",
+            projectId: "car-connect-c6232",
+            storageBucket: "car-connect-c6232.appspot.com",
+            messagingSenderId: "8187568957",
+            appId: "1:8187568957:web:d83fc2741b227f23c29b54",
+            measurementId: "G-K644JM5TFS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+
+        document.getElementById("submit").addEventListener('click', function (e) {
+            e.preventDefault();
+            set(ref(db, 'user/' + document.getElementById("username").value),
+                {
+
+                    username: document.getElementById("username").value,
+                    email: document.getElementById("email").value,
+                    PhoneNumber: document.getElementById("password").value
+
+                });
+            alert("Login Sucessfull  !");
+        })
+
+
+    </script>
 
 </body>
 
