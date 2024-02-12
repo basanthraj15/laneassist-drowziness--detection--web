@@ -61,7 +61,7 @@ body {
 
 }
 
-.btnLogin-popup {
+/* .navbar .btnLogin-popup {
     width: 130px;
     height: 50px;
     background: transparent;
@@ -72,11 +72,31 @@ body {
     font-size: 1.1em;
     color: #fff;
     font-weight: 500;
-    margin-right: 470px;
+    margin-left: 10px;
     transition: .5s;
 
 }
 
+.navbar .btnLogin-popup:hover {
+    background: #fff;
+    color: #162938;
+} */
+
+.btnLogin-popup {   
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: .5s;
+
+}
 .btnLogin-popup:hover {
     background: #fff;
     color: #162938;
@@ -129,7 +149,7 @@ body {
 .background {
     width: 100%;
     height: 100vh;
-    background: url('images/drow2.jpg') no-repeat;
+    background: url('images/Drowsy.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     filter: blur(10px);
@@ -142,7 +162,7 @@ body {
     transform: translate(-50%, -50%);
     width: 80%;
     height: 600px;
-    background: url('images/drow2.jpg') no-repeat;
+    background: url('images/Drowsy.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -333,18 +353,78 @@ body {
     text-decoration: underline;
 }
 
-
-
-
-.alert {
-    width: 100%;
-    background: rgb(0, 245, 110);
-    padding: 10px 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 15px;
-    color: #020410;
-    font-weight: 700;
-    display: none;
+/* Google sign in button */
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
 }
+
+.g-sign-in-button{
+    position: center;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%); */
+    margin: 45px;
+    display: inline-block;
+    width: 240px;
+    height: 50px;
+    background-color: #4285f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+    transition: background-color .218s, border-color .218s,box-shadow .218s
+
+}
+
+.g-sign-in-button:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 2px 2px rgba(66,133,244,.3);
+    box-shadow: 0 0 2px 2px rgba(66,133,244,.3);
+}
+
+.g-sign-in-button:active{
+    background-color: #3367d6;
+    transition: background-color .2s;
+}
+
+.g-sign-in-button .content-wrapper{
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+}
+
+.g-sign-in-button img{
+    width: 18px;
+    height: 18px;
+}
+
+.g-sign-in-button .logo-wrapper{
+    padding: 15px;
+    background: #fff;
+    width: 48px;
+    height: 100%;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.g-sign-in-button .text-container{
+    font-family: "Roboto",arial,sans-serif;
+    font-weight: 500;
+    letter-spacing: .21px;
+    font-size: 16px;
+    line-height: 48px;
+    vertical-align: top;
+    border: none;
+    display: inline-block;
+    text-align: center;
+    width: 180px;
+}
+
+
+
+
+
+
+
 
