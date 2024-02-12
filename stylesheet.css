@@ -202,7 +202,7 @@ body {
 .text-sci p {
     font-size: 16px;
     margin: 90px 0;
-    color: aquamarine;
+    color: white;
 
 
 }
@@ -331,7 +331,7 @@ body {
 .button {
     width: 100%;
     height: 45px;
-    background-color: aqua;
+    background-color: rgb(82, 234, 56);
 
     
   padding: 15px 32px;
@@ -348,10 +348,11 @@ body {
     outline: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20;
+    text-align: center;
     color: black;
     display: inline-block;
-    font-weight: 500;
+    font-weight: 700;
     box-shadow: 0 0 10px rgb(0 0 0 .5);
 }
 
