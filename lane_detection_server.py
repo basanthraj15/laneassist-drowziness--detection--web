@@ -31,10 +31,10 @@ def detect_lanes(image):
     line_image = np.zeros_like(image)
     draw_lines(line_image, lines)
 
-    # Add text overlay for "Good lane keeping"
+    #  "Good lane keeping"
     cv2.putText(line_image, 'Good lane keeping!!!', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     
-    # Add timestamp text overlay
+    # timestamp
     current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cv2.putText(line_image, current_datetime, (10, height - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
@@ -49,13 +49,13 @@ def index():
 def process_frame():
     frame_data = request.json.get('frame', None)
     if frame_data:
-        # Convert data URL back to image
+     
         frame_bytes = frame_data.split(',')[1].encode()
         nparr = np.frombuffer(base64.b64decode(frame_bytes), np.uint8)
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         processed_frame = detect_lanes(frame)
         
-        # Save processed frame to output folder
+        # output folder
         output_dir = os.path.join(os.path.dirname(__file__), "output")
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -64,10 +64,10 @@ def process_frame():
         output_path = os.path.join(output_dir, output_filename)
         cv2.imwrite(output_path, processed_frame)
         
-        # Save processed frames to video
+        #codec used
         out_video_path = os.path.join(output_dir, "output_video.mp4")
         if not os.path.exists(out_video_path):
-            fps = 30  # Adjust FPS as needed
+            fps = 30  
             height, width, _ = frame.shape
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
             out = cv2.VideoWriter(out_video_path, fourcc, fps, (width, height))

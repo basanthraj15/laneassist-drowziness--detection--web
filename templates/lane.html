@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +90,7 @@
             var outputCanvas = document.getElementById('outputCanvas');
             var context = outputCanvas.getContext('2d');
             var frameCount = 0;
-            var totalFrames = videoElement.duration * 30; // Assuming 30 frames per second
+            var totalFrames = videoElement.duration * 30; //30fps set aaki
 
             function drawFrame() {
                 if (videoElement.paused || videoElement.ended) {
@@ -116,7 +114,7 @@
         function updateProgress(currentFrame, totalFrames) {
             var progressBarFill = document.getElementById('progressBarFill');
             var percentage = Math.floor((currentFrame / totalFrames) * 100);
-            percentage = Math.min(percentage, 100); // Ensure the percentage does not exceed 100
+            percentage = Math.min(percentage, 100); 
             progressBarFill.style.width = percentage + '%';
             progressBarFill.innerHTML = percentage + '%';
         }
@@ -144,11 +142,11 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     console.log('Output video generated:', videoPath);
                     displayVideo(videoPath);
-                    alert('Processing completed.'); // Show alert when processing is completed
+                    alert('Processing completed.'); 
                 } else {
                     setTimeout(function () {
                         waitForVideo(videoPath);
-                    }, 1000); // Check again in 1 second
+                    }, 1000); // Check again aftr sec
                 }
             };
             xhr.send();
