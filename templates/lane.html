@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lane Detection</title>
+    <style>
+        #processButton {
+            display: block;
+            margin: 0 auto ;
+            padding: 15px 30px; 
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 15px
+            
+        }
+
+        #videoInput {
+            display: block;
+            text-align: center;
+            margin:  40px auto 20px;
+        }
+
+        #progressBar {
+                width: 100%;
+                height: 30px;
+                background-color: #ddd;
+            }
+    
+        #progressBarFill {
+                height: 100%;
+                background-color: #4caf50;
+                width: 0;
+                text-align: center;
+                line-height: 30px;
+                color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">LANE DETECTION</h1>
+    <input type="file" id="videoInput" accept="video/*">
+    <button id="processButton" onclick="processVideo()">Process Video</button>
+    <br>
+    <video id="videoElement" controls style="display:none;"></video>
+    <canvas id="outputCanvas" style="display:none;"></canvas>
+    <div id="progressDiv" style="display:none;">
+        <div id="progressBar">
+            <div id="progressBarFill"></div>
+        </div>
+    </div>
+    <br>
+    <video id="outputVideo" controls style="display:none;"></video>
+    <script>
+        function processVideo() {
+            var videoInput = document.getElementById('videoInput');
+            var file = videoInput.files[0];
+            var videoElement = document.getElementById('videoElement');
+            var outputCanvas = document.getElementById('outputCanvas');
+            var outputVideo = document.getElementById('outputVideo');
+            var progressDiv = document.getElementById('progressDiv');
+            var context = outputCanvas.getContext('2d');
+
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                var videoURL = URL.createObjectURL(file);
+                videoElement.src = videoURL;
+                videoElement.style.display = 'block';
+
+                videoElement.onloadedmetadata = function() {
+                    outputCanvas.width = this.videoWidth;
+                    outputCanvas.height = this.videoHeight;
+                    outputCanvas.style.display = 'block';
+                    progressDiv.style.display = 'block';
+                    videoElement.play();
+                    processFrames();
+                };
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        function processFrames() {
+            var videoElement = document.getElementById('videoElement');
+            var outputCanvas = document.getElementById('outputCanvas');
+            var context = outputCanvas.getContext('2d');
+            var frameCount = 0;
+            var totalFrames = videoElement.duration * 30; // Assuming 30 frames per second
+
+            function drawFrame() {
+                if (videoElement.paused || videoElement.ended) {
+                    
+                    alert('Processing completed!!  Check your output Now');
+                    checkOutputVideo();
+                    return;
+                }
+                context.drawImage(videoElement, 0, 0, outputCanvas.width, outputCanvas.height);
+                var imageDataURL = outputCanvas.toDataURL('image/jpeg');
+                sendFrame(imageDataURL);
+                frameCount++;
+                updateProgress(frameCount, totalFrames);
+                requestAnimationFrame(drawFrame);
+            }
+
+            drawFrame();
+        }
+
+        
+        function updateProgress(currentFrame, totalFrames) {
+            var progressBarFill = document.getElementById('progressBarFill');
+            var percentage = Math.floor((currentFrame / totalFrames) * 100);
+            percentage = Math.min(percentage, 100); // Ensure the percentage does not exceed 100
+            progressBarFill.style.width = percentage + '%';
+            progressBarFill.innerHTML = percentage + '%';
+        }
+
+        function sendFrame(imageDataURL) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_frame', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Frame processed successfully');
+                    var responseData = JSON.parse(xhr.responseText);
+                    if (responseData.success && responseData.output_video) {
+                        waitForVideo(responseData.output_video);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({ frame: imageDataURL }));
+        }
+
+        function waitForVideo(videoPath) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', videoPath, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Output video generated:', videoPath);
+                    displayVideo(videoPath);
+                    alert('Processing completed.'); // Show alert when processing is completed
+                } else {
+                    setTimeout(function () {
+                        waitForVideo(videoPath);
+                    }, 1000); // Check again in 1 second
+                }
+            };
+            xhr.send();
+        }
+
+        function displayVideo(videoPath) {
+            var outputVideo = document.getElementById('outputVideo');
+            outputVideo.src = videoPath;
+            outputVideo.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
