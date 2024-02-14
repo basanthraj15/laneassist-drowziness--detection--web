@@ -1,0 +1,49 @@
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Firestore Data Display</title>
+                <link rel="stylesheet" href="style.css">
+            </head>
+            <body>
+                <div class="container">
+                    <h1>Firestore Data</h1>
+                    <ul id="dataList"></ul>
+                </div>
+            
+                <!-- Firebase -->
+                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+                
+                <script>
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyAaYEj9TDlsx1iHEujKvyl1FOjHi9UDxk4",
+                        authDomain: "car-connect-c6232.firebaseapp.com",
+                        projectId: "car-connect-c6232",
+                        storageBucket: "car-connect-c6232.appspot.com",
+                        messagingSenderId: "8187568957",
+                        appId: "1:8187568957:web:d83fc2741b227f23c29b54",
+                        measurementId: "G-K644JM5TFS"
+                    };
+            
+                    firebase.initializeApp(firebaseConfig);
+            
+                    const db = firebase.firestore();
+                    
+                    const dataList = document.getElementById("dataList");
+            
+                    // Retrieve data from Firestore and display in HTML
+                    db.collection("Drowzinessdata").get().then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            const data = doc.data();
+                            const listItem = document.createElement("li");
+                            listItem.textContent = `Document ID: ${doc.id}, Data: ${JSON.stringify(data)}`;
+                            dataList.appendChild(listItem);
+                        });
+                    });
+                </script>
+            </body>
+            </html>
+            
